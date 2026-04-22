@@ -1,0 +1,25 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// In the User model, we have a unique name + tag combination, so that users can have the same name as long as their tags are different. The tag and the name are decided by the user, the tag can be max 5 characters long and the name can be max 32 characters long. They are both asked when the user signs up, and they can change them later in their profile settings. The tag is generated randomly when the user signs up, but they can change it later if they want to. The tag is also used to generate the user's avatar, so if they change their tag, their avatar will also change. The avatar is generated using the DiceBear Avatars API, which generates a unique avatar based on the user's name and tag combination. The avatar URL is stored in the database so that we don't have to generate it every time we need to display the user's avatar.
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?  @db.VarChar(32)
+  tag       String?  @db.VarChar(5)
+  avatarUrl String?
+  createdAt DateTime @default(now())
+  @@unique([name, tag])
+}
