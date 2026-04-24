@@ -8,8 +8,40 @@
   --bg-light-400: #c0c0c0;
   --bg-light-500: #b0b0b0;
   --bg-light-600: #a0a0a0;
+  --bg-primary-0: #f97316;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* personalized background colors classes */
+.bg-light-def {
+  background-color: var(--bg-light-def);
+}
+.bg-light-100 {
+  background-color: var(--bg-light-100);
+}
+.bg-light-200 {
+  background-color: var(--bg-light-200);
+}
+.bg-light-300 {
+  background-color: var(--bg-light-300);
+}
+.bg-light-400 {
+  background-color: var(--bg-light-400);
+}
+.bg-light-500 {
+  background-color: var(--bg-light-500);
+}
+.bg-light-600 {
+  background-color: var(--bg-light-600);
+}
+.bg-primary-0 {
+  background-color: var(--bg-primary-0);
 }
 
 body {
   background: var(--bg-light-def);
+  color: #1c1917;
 }

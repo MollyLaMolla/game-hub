@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "User" ADD COLUMN     "inGameName" VARCHAR(32),
+ALTER COLUMN "name" SET DATA TYPE TEXT;
