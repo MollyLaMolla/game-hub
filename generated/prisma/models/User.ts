@@ -228,6 +228,9 @@ export type UserWhereInput = {
   friendOf?: Prisma.FriendshipListRelationFilter
   sentFriendRequests?: Prisma.FriendRequestListRelationFilter
   receivedFriendRequests?: Prisma.FriendRequestListRelationFilter
+  ownedLobbies?: Prisma.LobbyListRelationFilter
+  lobbyMemberships?: Prisma.LobbyMemberListRelationFilter
+  matchParticipations?: Prisma.MatchParticipantListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -247,6 +250,9 @@ export type UserOrderByWithRelationInput = {
   friendOf?: Prisma.FriendshipOrderByRelationAggregateInput
   sentFriendRequests?: Prisma.FriendRequestOrderByRelationAggregateInput
   receivedFriendRequests?: Prisma.FriendRequestOrderByRelationAggregateInput
+  ownedLobbies?: Prisma.LobbyOrderByRelationAggregateInput
+  lobbyMemberships?: Prisma.LobbyMemberOrderByRelationAggregateInput
+  matchParticipations?: Prisma.MatchParticipantOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -270,6 +276,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   friendOf?: Prisma.FriendshipListRelationFilter
   sentFriendRequests?: Prisma.FriendRequestListRelationFilter
   receivedFriendRequests?: Prisma.FriendRequestListRelationFilter
+  ownedLobbies?: Prisma.LobbyListRelationFilter
+  lobbyMemberships?: Prisma.LobbyMemberListRelationFilter
+  matchParticipations?: Prisma.MatchParticipantListRelationFilter
 }, "id" | "email" | "inGameName_tag">
 
 export type UserOrderByWithAggregationInput = {
@@ -321,6 +330,9 @@ export type UserCreateInput = {
   friendOf?: Prisma.FriendshipCreateNestedManyWithoutFriendInput
   sentFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutSenderInput
   receivedFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutReceiverInput
+  ownedLobbies?: Prisma.LobbyCreateNestedManyWithoutOwnerInput
+  lobbyMemberships?: Prisma.LobbyMemberCreateNestedManyWithoutUserInput
+  matchParticipations?: Prisma.MatchParticipantCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -340,6 +352,9 @@ export type UserUncheckedCreateInput = {
   friendOf?: Prisma.FriendshipUncheckedCreateNestedManyWithoutFriendInput
   sentFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutSenderInput
   receivedFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutReceiverInput
+  ownedLobbies?: Prisma.LobbyUncheckedCreateNestedManyWithoutOwnerInput
+  lobbyMemberships?: Prisma.LobbyMemberUncheckedCreateNestedManyWithoutUserInput
+  matchParticipations?: Prisma.MatchParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -359,6 +374,9 @@ export type UserUpdateInput = {
   friendOf?: Prisma.FriendshipUpdateManyWithoutFriendNestedInput
   sentFriendRequests?: Prisma.FriendRequestUpdateManyWithoutSenderNestedInput
   receivedFriendRequests?: Prisma.FriendRequestUpdateManyWithoutReceiverNestedInput
+  ownedLobbies?: Prisma.LobbyUpdateManyWithoutOwnerNestedInput
+  lobbyMemberships?: Prisma.LobbyMemberUpdateManyWithoutUserNestedInput
+  matchParticipations?: Prisma.MatchParticipantUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -378,6 +396,9 @@ export type UserUncheckedUpdateInput = {
   friendOf?: Prisma.FriendshipUncheckedUpdateManyWithoutFriendNestedInput
   sentFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutSenderNestedInput
   receivedFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutReceiverNestedInput
+  ownedLobbies?: Prisma.LobbyUncheckedUpdateManyWithoutOwnerNestedInput
+  lobbyMemberships?: Prisma.LobbyMemberUncheckedUpdateManyWithoutUserNestedInput
+  matchParticipations?: Prisma.MatchParticipantUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -488,6 +509,48 @@ export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
+export type UserCreateNestedOneWithoutOwnedLobbiesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOwnedLobbiesInput, Prisma.UserUncheckedCreateWithoutOwnedLobbiesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOwnedLobbiesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutOwnedLobbiesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOwnedLobbiesInput, Prisma.UserUncheckedCreateWithoutOwnedLobbiesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOwnedLobbiesInput
+  upsert?: Prisma.UserUpsertWithoutOwnedLobbiesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOwnedLobbiesInput, Prisma.UserUpdateWithoutOwnedLobbiesInput>, Prisma.UserUncheckedUpdateWithoutOwnedLobbiesInput>
+}
+
+export type UserCreateNestedOneWithoutLobbyMembershipsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLobbyMembershipsInput, Prisma.UserUncheckedCreateWithoutLobbyMembershipsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLobbyMembershipsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutLobbyMembershipsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLobbyMembershipsInput, Prisma.UserUncheckedCreateWithoutLobbyMembershipsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLobbyMembershipsInput
+  upsert?: Prisma.UserUpsertWithoutLobbyMembershipsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLobbyMembershipsInput, Prisma.UserUpdateWithoutLobbyMembershipsInput>, Prisma.UserUncheckedUpdateWithoutLobbyMembershipsInput>
+}
+
+export type UserCreateNestedOneWithoutMatchParticipationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMatchParticipationsInput, Prisma.UserUncheckedCreateWithoutMatchParticipationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMatchParticipationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutMatchParticipationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMatchParticipationsInput, Prisma.UserUncheckedCreateWithoutMatchParticipationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMatchParticipationsInput
+  upsert?: Prisma.UserUpsertWithoutMatchParticipationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMatchParticipationsInput, Prisma.UserUpdateWithoutMatchParticipationsInput>, Prisma.UserUncheckedUpdateWithoutMatchParticipationsInput>
+}
+
 export type UserCreateNestedOneWithoutFriendshipsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutFriendshipsInput, Prisma.UserUncheckedCreateWithoutFriendshipsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutFriendshipsInput
@@ -572,6 +635,306 @@ export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSessionsInput, Prisma.UserUpdateWithoutSessionsInput>, Prisma.UserUncheckedUpdateWithoutSessionsInput>
 }
 
+export type UserCreateWithoutOwnedLobbiesInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  inGameName?: string | null
+  tag?: string | null
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  onboardingCompleted?: boolean
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  friendships?: Prisma.FriendshipCreateNestedManyWithoutUserInput
+  friendOf?: Prisma.FriendshipCreateNestedManyWithoutFriendInput
+  sentFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutSenderInput
+  receivedFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutReceiverInput
+  lobbyMemberships?: Prisma.LobbyMemberCreateNestedManyWithoutUserInput
+  matchParticipations?: Prisma.MatchParticipantCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutOwnedLobbiesInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  inGameName?: string | null
+  tag?: string | null
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  onboardingCompleted?: boolean
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  friendships?: Prisma.FriendshipUncheckedCreateNestedManyWithoutUserInput
+  friendOf?: Prisma.FriendshipUncheckedCreateNestedManyWithoutFriendInput
+  sentFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutReceiverInput
+  lobbyMemberships?: Prisma.LobbyMemberUncheckedCreateNestedManyWithoutUserInput
+  matchParticipations?: Prisma.MatchParticipantUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutOwnedLobbiesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutOwnedLobbiesInput, Prisma.UserUncheckedCreateWithoutOwnedLobbiesInput>
+}
+
+export type UserUpsertWithoutOwnedLobbiesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutOwnedLobbiesInput, Prisma.UserUncheckedUpdateWithoutOwnedLobbiesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutOwnedLobbiesInput, Prisma.UserUncheckedCreateWithoutOwnedLobbiesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutOwnedLobbiesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutOwnedLobbiesInput, Prisma.UserUncheckedUpdateWithoutOwnedLobbiesInput>
+}
+
+export type UserUpdateWithoutOwnedLobbiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inGameName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  friendships?: Prisma.FriendshipUpdateManyWithoutUserNestedInput
+  friendOf?: Prisma.FriendshipUpdateManyWithoutFriendNestedInput
+  sentFriendRequests?: Prisma.FriendRequestUpdateManyWithoutSenderNestedInput
+  receivedFriendRequests?: Prisma.FriendRequestUpdateManyWithoutReceiverNestedInput
+  lobbyMemberships?: Prisma.LobbyMemberUpdateManyWithoutUserNestedInput
+  matchParticipations?: Prisma.MatchParticipantUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutOwnedLobbiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inGameName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  friendships?: Prisma.FriendshipUncheckedUpdateManyWithoutUserNestedInput
+  friendOf?: Prisma.FriendshipUncheckedUpdateManyWithoutFriendNestedInput
+  sentFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutReceiverNestedInput
+  lobbyMemberships?: Prisma.LobbyMemberUncheckedUpdateManyWithoutUserNestedInput
+  matchParticipations?: Prisma.MatchParticipantUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutLobbyMembershipsInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  inGameName?: string | null
+  tag?: string | null
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  onboardingCompleted?: boolean
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  friendships?: Prisma.FriendshipCreateNestedManyWithoutUserInput
+  friendOf?: Prisma.FriendshipCreateNestedManyWithoutFriendInput
+  sentFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutSenderInput
+  receivedFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutReceiverInput
+  ownedLobbies?: Prisma.LobbyCreateNestedManyWithoutOwnerInput
+  matchParticipations?: Prisma.MatchParticipantCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutLobbyMembershipsInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  inGameName?: string | null
+  tag?: string | null
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  onboardingCompleted?: boolean
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  friendships?: Prisma.FriendshipUncheckedCreateNestedManyWithoutUserInput
+  friendOf?: Prisma.FriendshipUncheckedCreateNestedManyWithoutFriendInput
+  sentFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutReceiverInput
+  ownedLobbies?: Prisma.LobbyUncheckedCreateNestedManyWithoutOwnerInput
+  matchParticipations?: Prisma.MatchParticipantUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutLobbyMembershipsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutLobbyMembershipsInput, Prisma.UserUncheckedCreateWithoutLobbyMembershipsInput>
+}
+
+export type UserUpsertWithoutLobbyMembershipsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutLobbyMembershipsInput, Prisma.UserUncheckedUpdateWithoutLobbyMembershipsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLobbyMembershipsInput, Prisma.UserUncheckedCreateWithoutLobbyMembershipsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutLobbyMembershipsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutLobbyMembershipsInput, Prisma.UserUncheckedUpdateWithoutLobbyMembershipsInput>
+}
+
+export type UserUpdateWithoutLobbyMembershipsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inGameName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  friendships?: Prisma.FriendshipUpdateManyWithoutUserNestedInput
+  friendOf?: Prisma.FriendshipUpdateManyWithoutFriendNestedInput
+  sentFriendRequests?: Prisma.FriendRequestUpdateManyWithoutSenderNestedInput
+  receivedFriendRequests?: Prisma.FriendRequestUpdateManyWithoutReceiverNestedInput
+  ownedLobbies?: Prisma.LobbyUpdateManyWithoutOwnerNestedInput
+  matchParticipations?: Prisma.MatchParticipantUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutLobbyMembershipsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inGameName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  friendships?: Prisma.FriendshipUncheckedUpdateManyWithoutUserNestedInput
+  friendOf?: Prisma.FriendshipUncheckedUpdateManyWithoutFriendNestedInput
+  sentFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutReceiverNestedInput
+  ownedLobbies?: Prisma.LobbyUncheckedUpdateManyWithoutOwnerNestedInput
+  matchParticipations?: Prisma.MatchParticipantUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutMatchParticipationsInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  inGameName?: string | null
+  tag?: string | null
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  onboardingCompleted?: boolean
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  friendships?: Prisma.FriendshipCreateNestedManyWithoutUserInput
+  friendOf?: Prisma.FriendshipCreateNestedManyWithoutFriendInput
+  sentFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutSenderInput
+  receivedFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutReceiverInput
+  ownedLobbies?: Prisma.LobbyCreateNestedManyWithoutOwnerInput
+  lobbyMemberships?: Prisma.LobbyMemberCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutMatchParticipationsInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  inGameName?: string | null
+  tag?: string | null
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  onboardingCompleted?: boolean
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  friendships?: Prisma.FriendshipUncheckedCreateNestedManyWithoutUserInput
+  friendOf?: Prisma.FriendshipUncheckedCreateNestedManyWithoutFriendInput
+  sentFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutSenderInput
+  receivedFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutReceiverInput
+  ownedLobbies?: Prisma.LobbyUncheckedCreateNestedManyWithoutOwnerInput
+  lobbyMemberships?: Prisma.LobbyMemberUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutMatchParticipationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMatchParticipationsInput, Prisma.UserUncheckedCreateWithoutMatchParticipationsInput>
+}
+
+export type UserUpsertWithoutMatchParticipationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMatchParticipationsInput, Prisma.UserUncheckedUpdateWithoutMatchParticipationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMatchParticipationsInput, Prisma.UserUncheckedCreateWithoutMatchParticipationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMatchParticipationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMatchParticipationsInput, Prisma.UserUncheckedUpdateWithoutMatchParticipationsInput>
+}
+
+export type UserUpdateWithoutMatchParticipationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inGameName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  friendships?: Prisma.FriendshipUpdateManyWithoutUserNestedInput
+  friendOf?: Prisma.FriendshipUpdateManyWithoutFriendNestedInput
+  sentFriendRequests?: Prisma.FriendRequestUpdateManyWithoutSenderNestedInput
+  receivedFriendRequests?: Prisma.FriendRequestUpdateManyWithoutReceiverNestedInput
+  ownedLobbies?: Prisma.LobbyUpdateManyWithoutOwnerNestedInput
+  lobbyMemberships?: Prisma.LobbyMemberUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMatchParticipationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inGameName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  friendships?: Prisma.FriendshipUncheckedUpdateManyWithoutUserNestedInput
+  friendOf?: Prisma.FriendshipUncheckedUpdateManyWithoutFriendNestedInput
+  sentFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutSenderNestedInput
+  receivedFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutReceiverNestedInput
+  ownedLobbies?: Prisma.LobbyUncheckedUpdateManyWithoutOwnerNestedInput
+  lobbyMemberships?: Prisma.LobbyMemberUncheckedUpdateManyWithoutUserNestedInput
+}
+
 export type UserCreateWithoutFriendshipsInput = {
   id?: string
   name?: string | null
@@ -588,6 +951,9 @@ export type UserCreateWithoutFriendshipsInput = {
   friendOf?: Prisma.FriendshipCreateNestedManyWithoutFriendInput
   sentFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutSenderInput
   receivedFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutReceiverInput
+  ownedLobbies?: Prisma.LobbyCreateNestedManyWithoutOwnerInput
+  lobbyMemberships?: Prisma.LobbyMemberCreateNestedManyWithoutUserInput
+  matchParticipations?: Prisma.MatchParticipantCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFriendshipsInput = {
@@ -606,6 +972,9 @@ export type UserUncheckedCreateWithoutFriendshipsInput = {
   friendOf?: Prisma.FriendshipUncheckedCreateNestedManyWithoutFriendInput
   sentFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutSenderInput
   receivedFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutReceiverInput
+  ownedLobbies?: Prisma.LobbyUncheckedCreateNestedManyWithoutOwnerInput
+  lobbyMemberships?: Prisma.LobbyMemberUncheckedCreateNestedManyWithoutUserInput
+  matchParticipations?: Prisma.MatchParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFriendshipsInput = {
@@ -629,6 +998,9 @@ export type UserCreateWithoutFriendOfInput = {
   friendships?: Prisma.FriendshipCreateNestedManyWithoutUserInput
   sentFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutSenderInput
   receivedFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutReceiverInput
+  ownedLobbies?: Prisma.LobbyCreateNestedManyWithoutOwnerInput
+  lobbyMemberships?: Prisma.LobbyMemberCreateNestedManyWithoutUserInput
+  matchParticipations?: Prisma.MatchParticipantCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFriendOfInput = {
@@ -647,6 +1019,9 @@ export type UserUncheckedCreateWithoutFriendOfInput = {
   friendships?: Prisma.FriendshipUncheckedCreateNestedManyWithoutUserInput
   sentFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutSenderInput
   receivedFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutReceiverInput
+  ownedLobbies?: Prisma.LobbyUncheckedCreateNestedManyWithoutOwnerInput
+  lobbyMemberships?: Prisma.LobbyMemberUncheckedCreateNestedManyWithoutUserInput
+  matchParticipations?: Prisma.MatchParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFriendOfInput = {
@@ -681,6 +1056,9 @@ export type UserUpdateWithoutFriendshipsInput = {
   friendOf?: Prisma.FriendshipUpdateManyWithoutFriendNestedInput
   sentFriendRequests?: Prisma.FriendRequestUpdateManyWithoutSenderNestedInput
   receivedFriendRequests?: Prisma.FriendRequestUpdateManyWithoutReceiverNestedInput
+  ownedLobbies?: Prisma.LobbyUpdateManyWithoutOwnerNestedInput
+  lobbyMemberships?: Prisma.LobbyMemberUpdateManyWithoutUserNestedInput
+  matchParticipations?: Prisma.MatchParticipantUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFriendshipsInput = {
@@ -699,6 +1077,9 @@ export type UserUncheckedUpdateWithoutFriendshipsInput = {
   friendOf?: Prisma.FriendshipUncheckedUpdateManyWithoutFriendNestedInput
   sentFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutSenderNestedInput
   receivedFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutReceiverNestedInput
+  ownedLobbies?: Prisma.LobbyUncheckedUpdateManyWithoutOwnerNestedInput
+  lobbyMemberships?: Prisma.LobbyMemberUncheckedUpdateManyWithoutUserNestedInput
+  matchParticipations?: Prisma.MatchParticipantUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutFriendOfInput = {
@@ -728,6 +1109,9 @@ export type UserUpdateWithoutFriendOfInput = {
   friendships?: Prisma.FriendshipUpdateManyWithoutUserNestedInput
   sentFriendRequests?: Prisma.FriendRequestUpdateManyWithoutSenderNestedInput
   receivedFriendRequests?: Prisma.FriendRequestUpdateManyWithoutReceiverNestedInput
+  ownedLobbies?: Prisma.LobbyUpdateManyWithoutOwnerNestedInput
+  lobbyMemberships?: Prisma.LobbyMemberUpdateManyWithoutUserNestedInput
+  matchParticipations?: Prisma.MatchParticipantUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFriendOfInput = {
@@ -746,6 +1130,9 @@ export type UserUncheckedUpdateWithoutFriendOfInput = {
   friendships?: Prisma.FriendshipUncheckedUpdateManyWithoutUserNestedInput
   sentFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutSenderNestedInput
   receivedFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutReceiverNestedInput
+  ownedLobbies?: Prisma.LobbyUncheckedUpdateManyWithoutOwnerNestedInput
+  lobbyMemberships?: Prisma.LobbyMemberUncheckedUpdateManyWithoutUserNestedInput
+  matchParticipations?: Prisma.MatchParticipantUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSentFriendRequestsInput = {
@@ -764,6 +1151,9 @@ export type UserCreateWithoutSentFriendRequestsInput = {
   friendships?: Prisma.FriendshipCreateNestedManyWithoutUserInput
   friendOf?: Prisma.FriendshipCreateNestedManyWithoutFriendInput
   receivedFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutReceiverInput
+  ownedLobbies?: Prisma.LobbyCreateNestedManyWithoutOwnerInput
+  lobbyMemberships?: Prisma.LobbyMemberCreateNestedManyWithoutUserInput
+  matchParticipations?: Prisma.MatchParticipantCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSentFriendRequestsInput = {
@@ -782,6 +1172,9 @@ export type UserUncheckedCreateWithoutSentFriendRequestsInput = {
   friendships?: Prisma.FriendshipUncheckedCreateNestedManyWithoutUserInput
   friendOf?: Prisma.FriendshipUncheckedCreateNestedManyWithoutFriendInput
   receivedFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutReceiverInput
+  ownedLobbies?: Prisma.LobbyUncheckedCreateNestedManyWithoutOwnerInput
+  lobbyMemberships?: Prisma.LobbyMemberUncheckedCreateNestedManyWithoutUserInput
+  matchParticipations?: Prisma.MatchParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSentFriendRequestsInput = {
@@ -805,6 +1198,9 @@ export type UserCreateWithoutReceivedFriendRequestsInput = {
   friendships?: Prisma.FriendshipCreateNestedManyWithoutUserInput
   friendOf?: Prisma.FriendshipCreateNestedManyWithoutFriendInput
   sentFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutSenderInput
+  ownedLobbies?: Prisma.LobbyCreateNestedManyWithoutOwnerInput
+  lobbyMemberships?: Prisma.LobbyMemberCreateNestedManyWithoutUserInput
+  matchParticipations?: Prisma.MatchParticipantCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReceivedFriendRequestsInput = {
@@ -823,6 +1219,9 @@ export type UserUncheckedCreateWithoutReceivedFriendRequestsInput = {
   friendships?: Prisma.FriendshipUncheckedCreateNestedManyWithoutUserInput
   friendOf?: Prisma.FriendshipUncheckedCreateNestedManyWithoutFriendInput
   sentFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutSenderInput
+  ownedLobbies?: Prisma.LobbyUncheckedCreateNestedManyWithoutOwnerInput
+  lobbyMemberships?: Prisma.LobbyMemberUncheckedCreateNestedManyWithoutUserInput
+  matchParticipations?: Prisma.MatchParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReceivedFriendRequestsInput = {
@@ -857,6 +1256,9 @@ export type UserUpdateWithoutSentFriendRequestsInput = {
   friendships?: Prisma.FriendshipUpdateManyWithoutUserNestedInput
   friendOf?: Prisma.FriendshipUpdateManyWithoutFriendNestedInput
   receivedFriendRequests?: Prisma.FriendRequestUpdateManyWithoutReceiverNestedInput
+  ownedLobbies?: Prisma.LobbyUpdateManyWithoutOwnerNestedInput
+  lobbyMemberships?: Prisma.LobbyMemberUpdateManyWithoutUserNestedInput
+  matchParticipations?: Prisma.MatchParticipantUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentFriendRequestsInput = {
@@ -875,6 +1277,9 @@ export type UserUncheckedUpdateWithoutSentFriendRequestsInput = {
   friendships?: Prisma.FriendshipUncheckedUpdateManyWithoutUserNestedInput
   friendOf?: Prisma.FriendshipUncheckedUpdateManyWithoutFriendNestedInput
   receivedFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutReceiverNestedInput
+  ownedLobbies?: Prisma.LobbyUncheckedUpdateManyWithoutOwnerNestedInput
+  lobbyMemberships?: Prisma.LobbyMemberUncheckedUpdateManyWithoutUserNestedInput
+  matchParticipations?: Prisma.MatchParticipantUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReceivedFriendRequestsInput = {
@@ -904,6 +1309,9 @@ export type UserUpdateWithoutReceivedFriendRequestsInput = {
   friendships?: Prisma.FriendshipUpdateManyWithoutUserNestedInput
   friendOf?: Prisma.FriendshipUpdateManyWithoutFriendNestedInput
   sentFriendRequests?: Prisma.FriendRequestUpdateManyWithoutSenderNestedInput
+  ownedLobbies?: Prisma.LobbyUpdateManyWithoutOwnerNestedInput
+  lobbyMemberships?: Prisma.LobbyMemberUpdateManyWithoutUserNestedInput
+  matchParticipations?: Prisma.MatchParticipantUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReceivedFriendRequestsInput = {
@@ -922,6 +1330,9 @@ export type UserUncheckedUpdateWithoutReceivedFriendRequestsInput = {
   friendships?: Prisma.FriendshipUncheckedUpdateManyWithoutUserNestedInput
   friendOf?: Prisma.FriendshipUncheckedUpdateManyWithoutFriendNestedInput
   sentFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutSenderNestedInput
+  ownedLobbies?: Prisma.LobbyUncheckedUpdateManyWithoutOwnerNestedInput
+  lobbyMemberships?: Prisma.LobbyMemberUncheckedUpdateManyWithoutUserNestedInput
+  matchParticipations?: Prisma.MatchParticipantUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -940,6 +1351,9 @@ export type UserCreateWithoutAccountsInput = {
   friendOf?: Prisma.FriendshipCreateNestedManyWithoutFriendInput
   sentFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutSenderInput
   receivedFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutReceiverInput
+  ownedLobbies?: Prisma.LobbyCreateNestedManyWithoutOwnerInput
+  lobbyMemberships?: Prisma.LobbyMemberCreateNestedManyWithoutUserInput
+  matchParticipations?: Prisma.MatchParticipantCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -958,6 +1372,9 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   friendOf?: Prisma.FriendshipUncheckedCreateNestedManyWithoutFriendInput
   sentFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutSenderInput
   receivedFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutReceiverInput
+  ownedLobbies?: Prisma.LobbyUncheckedCreateNestedManyWithoutOwnerInput
+  lobbyMemberships?: Prisma.LobbyMemberUncheckedCreateNestedManyWithoutUserInput
+  matchParticipations?: Prisma.MatchParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -992,6 +1409,9 @@ export type UserUpdateWithoutAccountsInput = {
   friendOf?: Prisma.FriendshipUpdateManyWithoutFriendNestedInput
   sentFriendRequests?: Prisma.FriendRequestUpdateManyWithoutSenderNestedInput
   receivedFriendRequests?: Prisma.FriendRequestUpdateManyWithoutReceiverNestedInput
+  ownedLobbies?: Prisma.LobbyUpdateManyWithoutOwnerNestedInput
+  lobbyMemberships?: Prisma.LobbyMemberUpdateManyWithoutUserNestedInput
+  matchParticipations?: Prisma.MatchParticipantUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1010,6 +1430,9 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   friendOf?: Prisma.FriendshipUncheckedUpdateManyWithoutFriendNestedInput
   sentFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutSenderNestedInput
   receivedFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutReceiverNestedInput
+  ownedLobbies?: Prisma.LobbyUncheckedUpdateManyWithoutOwnerNestedInput
+  lobbyMemberships?: Prisma.LobbyMemberUncheckedUpdateManyWithoutUserNestedInput
+  matchParticipations?: Prisma.MatchParticipantUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -1028,6 +1451,9 @@ export type UserCreateWithoutSessionsInput = {
   friendOf?: Prisma.FriendshipCreateNestedManyWithoutFriendInput
   sentFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutSenderInput
   receivedFriendRequests?: Prisma.FriendRequestCreateNestedManyWithoutReceiverInput
+  ownedLobbies?: Prisma.LobbyCreateNestedManyWithoutOwnerInput
+  lobbyMemberships?: Prisma.LobbyMemberCreateNestedManyWithoutUserInput
+  matchParticipations?: Prisma.MatchParticipantCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1046,6 +1472,9 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   friendOf?: Prisma.FriendshipUncheckedCreateNestedManyWithoutFriendInput
   sentFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutSenderInput
   receivedFriendRequests?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutReceiverInput
+  ownedLobbies?: Prisma.LobbyUncheckedCreateNestedManyWithoutOwnerInput
+  lobbyMemberships?: Prisma.LobbyMemberUncheckedCreateNestedManyWithoutUserInput
+  matchParticipations?: Prisma.MatchParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1080,6 +1509,9 @@ export type UserUpdateWithoutSessionsInput = {
   friendOf?: Prisma.FriendshipUpdateManyWithoutFriendNestedInput
   sentFriendRequests?: Prisma.FriendRequestUpdateManyWithoutSenderNestedInput
   receivedFriendRequests?: Prisma.FriendRequestUpdateManyWithoutReceiverNestedInput
+  ownedLobbies?: Prisma.LobbyUpdateManyWithoutOwnerNestedInput
+  lobbyMemberships?: Prisma.LobbyMemberUpdateManyWithoutUserNestedInput
+  matchParticipations?: Prisma.MatchParticipantUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1098,6 +1530,9 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   friendOf?: Prisma.FriendshipUncheckedUpdateManyWithoutFriendNestedInput
   sentFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutSenderNestedInput
   receivedFriendRequests?: Prisma.FriendRequestUncheckedUpdateManyWithoutReceiverNestedInput
+  ownedLobbies?: Prisma.LobbyUncheckedUpdateManyWithoutOwnerNestedInput
+  lobbyMemberships?: Prisma.LobbyMemberUncheckedUpdateManyWithoutUserNestedInput
+  matchParticipations?: Prisma.MatchParticipantUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1112,6 +1547,9 @@ export type UserCountOutputType = {
   friendOf: number
   sentFriendRequests: number
   receivedFriendRequests: number
+  ownedLobbies: number
+  lobbyMemberships: number
+  matchParticipations: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1121,6 +1559,9 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   friendOf?: boolean | UserCountOutputTypeCountFriendOfArgs
   sentFriendRequests?: boolean | UserCountOutputTypeCountSentFriendRequestsArgs
   receivedFriendRequests?: boolean | UserCountOutputTypeCountReceivedFriendRequestsArgs
+  ownedLobbies?: boolean | UserCountOutputTypeCountOwnedLobbiesArgs
+  lobbyMemberships?: boolean | UserCountOutputTypeCountLobbyMembershipsArgs
+  matchParticipations?: boolean | UserCountOutputTypeCountMatchParticipationsArgs
 }
 
 /**
@@ -1175,6 +1616,27 @@ export type UserCountOutputTypeCountReceivedFriendRequestsArgs<ExtArgs extends r
   where?: Prisma.FriendRequestWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountOwnedLobbiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LobbyWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountLobbyMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LobbyMemberWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMatchParticipationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MatchParticipantWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1193,6 +1655,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   friendOf?: boolean | Prisma.User$friendOfArgs<ExtArgs>
   sentFriendRequests?: boolean | Prisma.User$sentFriendRequestsArgs<ExtArgs>
   receivedFriendRequests?: boolean | Prisma.User$receivedFriendRequestsArgs<ExtArgs>
+  ownedLobbies?: boolean | Prisma.User$ownedLobbiesArgs<ExtArgs>
+  lobbyMemberships?: boolean | Prisma.User$lobbyMembershipsArgs<ExtArgs>
+  matchParticipations?: boolean | Prisma.User$matchParticipationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1243,6 +1708,9 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   friendOf?: boolean | Prisma.User$friendOfArgs<ExtArgs>
   sentFriendRequests?: boolean | Prisma.User$sentFriendRequestsArgs<ExtArgs>
   receivedFriendRequests?: boolean | Prisma.User$receivedFriendRequestsArgs<ExtArgs>
+  ownedLobbies?: boolean | Prisma.User$ownedLobbiesArgs<ExtArgs>
+  lobbyMemberships?: boolean | Prisma.User$lobbyMembershipsArgs<ExtArgs>
+  matchParticipations?: boolean | Prisma.User$matchParticipationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1257,6 +1725,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     friendOf: Prisma.$FriendshipPayload<ExtArgs>[]
     sentFriendRequests: Prisma.$FriendRequestPayload<ExtArgs>[]
     receivedFriendRequests: Prisma.$FriendRequestPayload<ExtArgs>[]
+    ownedLobbies: Prisma.$LobbyPayload<ExtArgs>[]
+    lobbyMemberships: Prisma.$LobbyMemberPayload<ExtArgs>[]
+    matchParticipations: Prisma.$MatchParticipantPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1669,6 +2140,9 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   friendOf<T extends Prisma.User$friendOfArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$friendOfArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FriendshipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sentFriendRequests<T extends Prisma.User$sentFriendRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentFriendRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FriendRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   receivedFriendRequests<T extends Prisma.User$receivedFriendRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$receivedFriendRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FriendRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ownedLobbies<T extends Prisma.User$ownedLobbiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ownedLobbiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LobbyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  lobbyMemberships<T extends Prisma.User$lobbyMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$lobbyMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LobbyMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  matchParticipations<T extends Prisma.User$matchParticipationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$matchParticipationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MatchParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2242,6 +2716,78 @@ export type User$receivedFriendRequestsArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.FriendRequestScalarFieldEnum | Prisma.FriendRequestScalarFieldEnum[]
+}
+
+/**
+ * User.ownedLobbies
+ */
+export type User$ownedLobbiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Lobby
+   */
+  select?: Prisma.LobbySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Lobby
+   */
+  omit?: Prisma.LobbyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LobbyInclude<ExtArgs> | null
+  where?: Prisma.LobbyWhereInput
+  orderBy?: Prisma.LobbyOrderByWithRelationInput | Prisma.LobbyOrderByWithRelationInput[]
+  cursor?: Prisma.LobbyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LobbyScalarFieldEnum | Prisma.LobbyScalarFieldEnum[]
+}
+
+/**
+ * User.lobbyMemberships
+ */
+export type User$lobbyMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LobbyMember
+   */
+  select?: Prisma.LobbyMemberSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LobbyMember
+   */
+  omit?: Prisma.LobbyMemberOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LobbyMemberInclude<ExtArgs> | null
+  where?: Prisma.LobbyMemberWhereInput
+  orderBy?: Prisma.LobbyMemberOrderByWithRelationInput | Prisma.LobbyMemberOrderByWithRelationInput[]
+  cursor?: Prisma.LobbyMemberWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LobbyMemberScalarFieldEnum | Prisma.LobbyMemberScalarFieldEnum[]
+}
+
+/**
+ * User.matchParticipations
+ */
+export type User$matchParticipationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MatchParticipant
+   */
+  select?: Prisma.MatchParticipantSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MatchParticipant
+   */
+  omit?: Prisma.MatchParticipantOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MatchParticipantInclude<ExtArgs> | null
+  where?: Prisma.MatchParticipantWhereInput
+  orderBy?: Prisma.MatchParticipantOrderByWithRelationInput | Prisma.MatchParticipantOrderByWithRelationInput[]
+  cursor?: Prisma.MatchParticipantWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MatchParticipantScalarFieldEnum | Prisma.MatchParticipantScalarFieldEnum[]
 }
 
 /**

@@ -9,7 +9,33 @@
 * 🟢 You can import this file directly.
 */
 
+export const GameKey = {
+  TICTACTOE: 'TICTACTOE'
+} as const
+
+export type GameKey = (typeof GameKey)[keyof typeof GameKey]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const LobbyQueueType = {
+  PUBLIC: 'PUBLIC',
+  PRIVATE: 'PRIVATE'
+} as const
+
+export type LobbyQueueType = (typeof LobbyQueueType)[keyof typeof LobbyQueueType]
+
+
+export const LobbyStatus = {
+  OPEN: 'OPEN',
+  SEARCHING: 'SEARCHING',
+  IN_PROGRESS: 'IN_PROGRESS'
+} as const
+
+export type LobbyStatus = (typeof LobbyStatus)[keyof typeof LobbyStatus]
+
+
+export const MatchStatus = {
+  ACTIVE: 'ACTIVE',
+  FINISHED: 'FINISHED'
+} as const
+
+export type MatchStatus = (typeof MatchStatus)[keyof typeof MatchStatus]

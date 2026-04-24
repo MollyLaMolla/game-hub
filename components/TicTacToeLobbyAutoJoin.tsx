@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import {
+  isLobbyInviteExpired,
   readPendingLobbyInvite,
   removePendingLobbyInvite,
   type LobbyInviteSummary,
@@ -77,18 +78,23 @@ export default function TicTacToeLobbyAutoJoin() {
         tone: 'error',
         message: 'The selected invite is no longer available.',
       } satisfies AutoJoinState)
-    : !hasMatchmakingConnector && state.tone === 'idle'
+    : isLobbyInviteExpired(invite)
       ? ({
-          tone: 'info',
-          message:
-            'Invite captured. Automatic join will complete as soon as the realtime TicTacToe matchmaking connector is wired.',
+          tone: 'error',
+          message: 'This lobby invite has expired.',
         } satisfies AutoJoinState)
-      : state.tone === 'idle'
+      : !hasMatchmakingConnector && state.tone === 'idle'
         ? ({
             tone: 'info',
-            message: `Preparing automatic join for ${invite.lobbyName}...`,
+            message:
+              'Invite captured. Automatic join will complete as soon as the realtime TicTacToe matchmaking connector is wired.',
           } satisfies AutoJoinState)
-        : state
+        : state.tone === 'idle'
+          ? ({
+              tone: 'info',
+              message: `Preparing automatic join for ${invite.lobbyName}...`,
+            } satisfies AutoJoinState)
+          : state
 
   if (!derivedState.message) {
     return null

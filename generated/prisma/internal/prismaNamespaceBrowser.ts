@@ -52,6 +52,10 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
+  Lobby: 'Lobby',
+  LobbyMember: 'LobbyMember',
+  Match: 'Match',
+  MatchParticipant: 'MatchParticipant',
   Friendship: 'Friendship',
   FriendRequest: 'FriendRequest',
   Account: 'Account',
@@ -89,6 +93,65 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const LobbyScalarFieldEnum = {
+  id: 'id',
+  ownerId: 'ownerId',
+  currentMatchId: 'currentMatchId',
+  gameKey: 'gameKey',
+  queueType: 'queueType',
+  status: 'status',
+  inviteCode: 'inviteCode',
+  partySize: 'partySize',
+  totalPlayers: 'totalPlayers',
+  teamCount: 'teamCount',
+  teamSize: 'teamSize',
+  startedAt: 'startedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LobbyScalarFieldEnum = (typeof LobbyScalarFieldEnum)[keyof typeof LobbyScalarFieldEnum]
+
+
+export const LobbyMemberScalarFieldEnum = {
+  id: 'id',
+  lobbyId: 'lobbyId',
+  userId: 'userId',
+  slotIndex: 'slotIndex',
+  joinedAt: 'joinedAt',
+  lastSeenAt: 'lastSeenAt'
+} as const
+
+export type LobbyMemberScalarFieldEnum = (typeof LobbyMemberScalarFieldEnum)[keyof typeof LobbyMemberScalarFieldEnum]
+
+
+export const MatchScalarFieldEnum = {
+  id: 'id',
+  gameKey: 'gameKey',
+  queueType: 'queueType',
+  status: 'status',
+  totalPlayers: 'totalPlayers',
+  state: 'state',
+  createdAt: 'createdAt',
+  startedAt: 'startedAt',
+  finishedAt: 'finishedAt'
+} as const
+
+export type MatchScalarFieldEnum = (typeof MatchScalarFieldEnum)[keyof typeof MatchScalarFieldEnum]
+
+
+export const MatchParticipantScalarFieldEnum = {
+  id: 'id',
+  matchId: 'matchId',
+  userId: 'userId',
+  seatIndex: 'seatIndex',
+  joinedAt: 'joinedAt',
+  lastSeenAt: 'lastSeenAt'
+} as const
+
+export type MatchParticipantScalarFieldEnum = (typeof MatchParticipantScalarFieldEnum)[keyof typeof MatchParticipantScalarFieldEnum]
 
 
 export const FriendshipScalarFieldEnum = {
@@ -154,6 +217,13 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -168,4 +238,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

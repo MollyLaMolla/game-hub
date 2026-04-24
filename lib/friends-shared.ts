@@ -14,9 +14,11 @@ export type FriendRequestSummary = {
 export type LobbyInviteSummary = {
   id: string
   from: FriendIdentity
+  lobbyId: string
   lobbyName: string
   lobbyPath: string
   gameKey: 'tictactoe'
+  expiresAt: string
 }
 
 export type FriendRequestRealtimeNotice = {
@@ -36,11 +38,33 @@ export type FriendsSidebarData = {
   outgoingRequests: FriendRequestSummary[]
 }
 
+export type FriendsSidebarTab = 'requests' | 'friends' | 'search'
+
+export const OPEN_FRIENDS_SIDEBAR_EVENT = 'gamehub:open-friends-sidebar'
+
 export function buildPlayerId(inGameName: string, tag: string) {
   return `${inGameName}#${tag}`
 }
 
 const PENDING_INVITES_STORAGE_KEY = 'game-hub:pending-lobby-invites'
+
+export const LOBBY_INVITE_TTL_MS = 5 * 60 * 1000
+
+function isSameLobbyInvite(left: LobbyInviteSummary, right: LobbyInviteSummary) {
+  return (
+    left.from.id === right.from.id &&
+    left.gameKey === right.gameKey &&
+    left.lobbyId === right.lobbyId
+  )
+}
+
+export function isLobbyInviteExpired(invite: LobbyInviteSummary) {
+  return Number.isNaN(Date.parse(invite.expiresAt)) || Date.parse(invite.expiresAt) <= Date.now()
+}
+
+function normalizePendingLobbyInvites(invites: LobbyInviteSummary[]) {
+  return invites.filter(invite => !isLobbyInviteExpired(invite))
+}
 
 function canUseStorage() {
   return typeof window !== 'undefined' && typeof window.sessionStorage !== 'undefined'
@@ -51,8 +75,8 @@ export function savePendingLobbyInvite(invite: LobbyInviteSummary) {
     return
   }
 
-  const currentInvites = readPendingLobbyInvites()
-  const nextInvites = currentInvites.filter(entry => entry.id !== invite.id)
+  const currentInvites = normalizePendingLobbyInvites(readPendingLobbyInvites())
+  const nextInvites = currentInvites.filter(entry => !isSameLobbyInvite(entry, invite))
   nextInvites.unshift(invite)
   window.sessionStorage.setItem(PENDING_INVITES_STORAGE_KEY, JSON.stringify(nextInvites))
 }
@@ -70,7 +94,9 @@ export function readPendingLobbyInvites(): LobbyInviteSummary[] {
 
   try {
     const parsed = JSON.parse(rawValue) as LobbyInviteSummary[]
-    return Array.isArray(parsed) ? parsed : []
+    const normalizedInvites = Array.isArray(parsed) ? normalizePendingLobbyInvites(parsed) : []
+    window.sessionStorage.setItem(PENDING_INVITES_STORAGE_KEY, JSON.stringify(normalizedInvites))
+    return normalizedInvites
   } catch {
     return []
   }

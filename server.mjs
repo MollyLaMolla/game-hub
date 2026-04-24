@@ -1,5 +1,4 @@
 import 'dotenv/config'
-import { randomUUID } from 'node:crypto'
 import http from 'node:http'
 import next from 'next'
 import { Pool } from 'pg'
@@ -19,7 +18,8 @@ const databasePool = process.env.DATABASE_URL
 const websocketClientsByUserId = new Map()
 const websocketMeta = new WeakMap()
 const HEARTBEAT_INTERVAL_MS = 30000
-
+const STALE_ENTITY_CLEANUP_MS = 10000
+const STALE_ENTITY_THRESHOLD_MS = 20000
 const SESSION_COOKIE_NAMES = [
   '__Secure-next-auth.session-token',
   'next-auth.session-token',
@@ -165,6 +165,71 @@ function sendToUser(userId, payload) {
   }
 }
 
+async function cleanupInactiveEntities() {
+  if (!databasePool) {
+    return
+  }
+
+  const staleCutoff = new Date(Date.now() - STALE_ENTITY_THRESHOLD_MS)
+  const connectedUserIds = [...websocketClientsByUserId.keys()]
+  const client = await databasePool.connect()
+
+  try {
+    await client.query('BEGIN')
+
+    const staleLobbies = await client.query(
+      `
+        SELECT l.id
+        FROM "Lobby" l
+        LEFT JOIN "LobbyMember" lm ON lm."lobbyId" = l.id
+        GROUP BY l.id
+        HAVING COUNT(lm.id) = 0
+          OR (
+            BOOL_AND(lm."lastSeenAt" IS NULL OR lm."lastSeenAt" < $1)
+            AND NOT COALESCE(BOOL_OR(lm."userId" = ANY($2::text[])), false)
+          )
+      `,
+      [staleCutoff, connectedUserIds]
+    )
+
+    if (staleLobbies.rowCount) {
+      await client.query(`DELETE FROM "Lobby" WHERE id = ANY($1::text[])`, [
+        staleLobbies.rows.map(row => row.id),
+      ])
+    }
+
+    const staleMatches = await client.query(
+      `
+        SELECT m.id
+        FROM "Match" m
+        LEFT JOIN "MatchParticipant" mp ON mp."matchId" = m.id
+        LEFT JOIN "Lobby" l ON l."currentMatchId" = m.id
+        GROUP BY m.id, m.status, m."finishedAt"
+        HAVING COUNT(DISTINCT l.id) = 0
+          AND (
+            COUNT(DISTINCT mp.id) = 0
+            OR BOOL_AND(mp."lastSeenAt" IS NULL OR mp."lastSeenAt" < $1)
+            OR (m.status = 'FINISHED' AND m."finishedAt" < $1)
+          )
+      `,
+      [staleCutoff]
+    )
+
+    if (staleMatches.rowCount) {
+      await client.query(`DELETE FROM "Match" WHERE id = ANY($1::text[])`, [
+        staleMatches.rows.map(row => row.id),
+      ])
+    }
+
+    await client.query('COMMIT')
+  } catch (error) {
+    await client.query('ROLLBACK')
+    console.error('Failed to clean inactive lobbies/matches.', error)
+  } finally {
+    client.release()
+  }
+}
+
 registerRealtimeSender(sendToUser)
 
 app.prepare().then(() => {
@@ -192,6 +257,11 @@ app.prepare().then(() => {
       socket.ping()
     }
   }, HEARTBEAT_INTERVAL_MS)
+  const cleanupInterval = setInterval(() => {
+    void cleanupInactiveEntities()
+  }, STALE_ENTITY_CLEANUP_MS)
+
+  void cleanupInactiveEntities()
 
   websocketServer.on('connection', (socket, request, sessionUser) => {
     addSocket(sessionUser.id, socket)
@@ -212,31 +282,7 @@ app.prepare().then(() => {
 
     socket.on('message', rawMessage => {
       try {
-        const message = JSON.parse(rawMessage.toString())
-        const sessionMeta = websocketMeta.get(socket)
-
-        if (
-          message.type === 'invite_to_lobby' &&
-          message.targetUserId &&
-          message.gameKey === 'tictactoe' &&
-          sessionMeta
-        ) {
-          sendToUser(message.targetUserId, {
-            type: 'lobby_invite',
-            invite: {
-              id: randomUUID(),
-              from: {
-                id: sessionMeta.id,
-                inGameName: sessionMeta.inGameName,
-                tag: sessionMeta.tag,
-                avatarUrl: sessionMeta.avatarUrl,
-              },
-              lobbyName: 'TicTacToe',
-              lobbyPath: '/TicTacToe',
-              gameKey: 'tictactoe',
-            },
-          })
-        }
+        JSON.parse(rawMessage.toString())
       } catch {
         sendJson(socket, {
           type: 'error',
@@ -281,6 +327,7 @@ app.prepare().then(() => {
     })
     .once('close', () => {
       clearInterval(heartbeatInterval)
+      clearInterval(cleanupInterval)
     })
     .listen(port, hostname, () => {
       console.log(`> Ready on http://${hostname}:${port}`)

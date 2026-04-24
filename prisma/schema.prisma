@@ -31,12 +31,109 @@ model User {
   friendOf      Friendship[]   @relation("FriendOf")
   sentFriendRequests     FriendRequest[] @relation("SentFriendRequests")
   receivedFriendRequests FriendRequest[] @relation("ReceivedFriendRequests")
+  ownedLobbies Lobby[] @relation("LobbyOwner")
+  lobbyMemberships LobbyMember[]
+  matchParticipations MatchParticipant[]
 
   createdAt     DateTime  @default(now())
 
   onboardingCompleted Boolean @default(false)
 
   @@unique([inGameName, tag])
+}
+
+enum GameKey {
+  TICTACTOE
+}
+
+enum LobbyQueueType {
+  PUBLIC
+  PRIVATE
+}
+
+enum LobbyStatus {
+  OPEN
+  SEARCHING
+  IN_PROGRESS
+}
+
+enum MatchStatus {
+  ACTIVE
+  FINISHED
+}
+
+model Lobby {
+  id           String         @id @default(cuid())
+  ownerId      String
+  currentMatchId String?
+  gameKey      GameKey
+  queueType    LobbyQueueType
+  status       LobbyStatus    @default(OPEN)
+  inviteCode   String         @unique @db.VarChar(12)
+  partySize    Int
+  totalPlayers Int
+  teamCount    Int
+  teamSize     Int
+  startedAt    DateTime?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  owner   User          @relation("LobbyOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  currentMatch Match?   @relation(fields: [currentMatchId], references: [id], onDelete: SetNull)
+  members LobbyMember[]
+
+  @@index([ownerId, status])
+  @@index([status, updatedAt])
+  @@index([currentMatchId])
+}
+
+model LobbyMember {
+  id        String   @id @default(cuid())
+  lobbyId    String
+  userId     String
+  slotIndex  Int
+  joinedAt   DateTime @default(now())
+  lastSeenAt DateTime? @default(now())
+
+  lobby Lobby @relation(fields: [lobbyId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([lobbyId, userId])
+  @@unique([lobbyId, slotIndex])
+  @@index([userId])
+}
+
+model Match {
+  id           String         @id @default(cuid())
+  gameKey      GameKey
+  queueType    LobbyQueueType
+  status       MatchStatus    @default(ACTIVE)
+  totalPlayers Int
+  state        Json
+  createdAt    DateTime       @default(now())
+  startedAt    DateTime       @default(now())
+  finishedAt   DateTime?
+
+  lobbies      Lobby[]
+  participants MatchParticipant[]
+
+  @@index([gameKey, queueType, status])
+}
+
+model MatchParticipant {
+  id        String   @id @default(cuid())
+  matchId    String
+  userId     String
+  seatIndex  Int
+  joinedAt   DateTime @default(now())
+  lastSeenAt DateTime? @default(now())
+
+  match Match @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([matchId, userId])
+  @@unique([matchId, seatIndex])
+  @@index([userId])
 }
 
 model Friendship {
