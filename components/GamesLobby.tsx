@@ -29,6 +29,7 @@ import {
   removePendingLobbyInvite,
   type LobbyInviteSummary,
 } from '@/lib/friends-shared'
+import { getRealtimeWebSocketUrl } from '@/lib/realtime-client'
 import type {
   LobbyActionResponse,
   LobbyRealtimeNotice,
@@ -380,7 +381,6 @@ export default function GamesLobby({ initialLobby, currentUserId }: Props) {
   }, [openMemberMenuId])
 
   useEffect(() => {
-    const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws'
     let disposed = false
 
     function clearReconnectTimer() {
@@ -406,7 +406,7 @@ export default function GamesLobby({ initialLobby, currentUserId }: Props) {
         return
       }
 
-      const websocket = new WebSocket(`${protocol}://${window.location.host}/ws`)
+      const websocket = new WebSocket(getRealtimeWebSocketUrl())
       websocketRef.current = websocket
       let opened = false
       let intentionallyClosed = false

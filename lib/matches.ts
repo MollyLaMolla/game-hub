@@ -175,11 +175,11 @@ function createRematchState(
 }
 
 function findWinningLine(board: Array<TicTacToeMark | null>) {
-  return (
-    TICTACTOE_WINNING_LINES.find(([first, second, third]) => {
-      return board[first] && board[first] === board[second] && board[first] === board[third]
-    }) || null
-  )
+  const winningLine = TICTACTOE_WINNING_LINES.find(([first, second, third]) => {
+    return board[first] && board[first] === board[second] && board[first] === board[third]
+  })
+
+  return winningLine ? [...winningLine] : null
 }
 
 function isOlderThan(value: Date | string | null | undefined, thresholdMs: number, nowMs: number) {

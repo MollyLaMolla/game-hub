@@ -27,6 +27,7 @@ import {
   removePendingLobbyInvite,
   savePendingLobbyInvite,
 } from '@/lib/friends-shared'
+import { getRealtimeWebSocketUrl } from '@/lib/realtime-client'
 
 type FriendsActionResponse = {
   data?: FriendsSidebarData
@@ -260,7 +261,6 @@ export default function Friends({ inGameName, tag }: { inGameName: string; tag: 
   }, [])
 
   useEffect(() => {
-    const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws'
     let disposed = false
 
     function clearReconnectTimer() {
@@ -286,7 +286,7 @@ export default function Friends({ inGameName, tag }: { inGameName: string; tag: 
         return
       }
 
-      const websocket = new WebSocket(`${protocol}://${window.location.host}/ws`)
+      const websocket = new WebSocket(getRealtimeWebSocketUrl())
       websocketRef.current = websocket
       let opened = false
       let intentionallyClosed = false

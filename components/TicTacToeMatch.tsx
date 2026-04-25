@@ -21,6 +21,7 @@ import type {
   MatchSnapshot,
   TicTacToeMark,
 } from '@/lib/lobbies-shared'
+import { getRealtimeWebSocketUrl } from '@/lib/realtime-client'
 import MatchResultOverlay from './MatchResultOverlay'
 
 type Props = {
@@ -304,7 +305,6 @@ export default function TicTacToeMatch({ initialMatch, currentUserId }: Props) {
   }, [])
 
   useEffect(() => {
-    const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws'
     let disposed = false
 
     function clearReconnectTimer() {
@@ -330,7 +330,7 @@ export default function TicTacToeMatch({ initialMatch, currentUserId }: Props) {
         return
       }
 
-      const websocket = new WebSocket(`${protocol}://${window.location.host}/ws`)
+      const websocket = new WebSocket(getRealtimeWebSocketUrl())
       websocketRef.current = websocket
       let opened = false
       let intentionallyClosed = false
