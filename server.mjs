@@ -6,7 +6,7 @@ import { WebSocketServer } from 'ws'
 import { registerRealtimeSender } from './lib/realtime-bridge.mjs'
 
 const dev = process.env.NODE_ENV !== 'production'
-const hostname = process.env.HOST || 'localhost'
+const hostname = process.env.HOST || (dev ? 'localhost' : '0.0.0.0')
 const port = Number(process.env.PORT || 3000)
 
 const app = next({ dev, hostname, port })
